@@ -7,6 +7,13 @@ const Hero = () => {
   const [videoSrc, setVideoSrc] = useState(
     window.innerWidth < 760 ? smallHeroVideo : heroVideo
   );
+
+  const handleVideoSrcSet = () => {
+    if (window.innerWidth < 760) {
+      setVideoSrc(smallHeroVideo);
+    } else {
+    }
+  };
   useGSAP(() => {
     gsap.to("#hero", { opacity: 1, delay: 1.5 });
   }, []);
@@ -17,7 +24,13 @@ const Hero = () => {
           Iphone15 Pro
         </p>
         <div className="md:w-10/12 w-9/12">
-          <video autoPlay muted playsInline={true} key={videoSrc}>
+          <video
+            className="pointer-events-none"
+            autoPlay
+            muted
+            playsInline={true}
+            key={videoSrc}
+          >
             <source src={videoSrc} type="video/mp4" />
           </video>
         </div>
