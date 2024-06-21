@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { hightlightsSlides } from "../constants";
 import gsap from "gsap";
 import { pauseImg, playImg, replayImg } from "../utils";
-import { useGSAP } from "@gsap/react";
 
 const VideoCarousel = () => {
   const videoRef = useRef([]);
@@ -21,15 +20,15 @@ const VideoCarousel = () => {
 
   const { isEnd, isLastVideo, startPlay, videoId, isPlaying } = video;
 
-  useGSAP(() => {
-    gsap.to("#slider", {
+  useEffect(() => {
+    gsap.to(`#slider-${videoId}`, {
       transform: `translateX(${-100 * videoId}%)`,
       duration: 2,
       ease: "power2.inOut",
     });
-    gsap.to("#video", {
+    gsap.to(`#video-${videoId}`, {
       scrollTrigger: {
-        trigger: "#video",
+        trigger: `#video-${videoId}`,
         toggleActions: "restart none none none",
       },
       onComplete: () => {
@@ -40,7 +39,7 @@ const VideoCarousel = () => {
         }));
       },
     });
-  }, [isEnd, videoId]);
+  }, [isEnd, videoId, startPlay]);
 
   useEffect(() => {
     if (loadedData.length > 3) {
@@ -142,14 +141,17 @@ const VideoCarousel = () => {
     <>
       <div className="flex items-center">
         {hightlightsSlides.map((list, i) => (
-          <div key={list.id} id="slider" className="sm:pr-20 pr-10">
+          <div key={list.id} id={`slider-${i}`} className="sm:pr-20 pr-10">
             <div className="video-carousel_container">
               <div className="w-full h-full flex-center rounded-3xl overflow-hidden bg-black">
                 <video
-                  id="video"
+                  id={`video-${i}`}
                   playsInline={true}
                   preload="auto"
                   muted
+                  className={`${list.id === 2 && "translate-x-44"}
+                    pointer-events-none
+                   `}
                   ref={(el) => (videoRef.current[i] = el)}
                   onEnded={() =>
                     i !== 3
