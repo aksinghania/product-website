@@ -5,7 +5,8 @@ import { useRef, useState } from "react";
 import { yellowImg } from "../utils";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import { models } from "../constants";
+import { models, sizes } from "../constants";
+import { View } from "@react-three/drei";
 
 const Model = () => {
   const [size, setsize] = useState("small");
@@ -72,7 +73,7 @@ const Model = () => {
               }}
               eventSource={document.getElementById("root")}
             >
-              {/* <View.Port /> */}
+              <View.Port />
             </Canvas>
           </div>
           <div className="mx-auto w-full">
@@ -82,12 +83,28 @@ const Model = () => {
                 {models.map((item, i) => (
                   <li
                     key={i}
-                    className="w-6 h-6 rounded-full mx-2"
+                    className="w-6 h-6 rounded-full mx-2 cursor-pointer"
                     style={{ backgroundColor: item.color[0] }}
-                    onClick={() => setModel(item)}
+                    onClick={() => setmodel(item)}
                   />
                 ))}
               </ul>
+
+              <button className="size-btn-container">
+                {sizes.map(({ label, value }) => (
+                  <span
+                    key={label}
+                    className="size-btn"
+                    style={{
+                      backgroundColor: size === value ? "white" : "transparent",
+                      color: size === value ? "black" : "white",
+                    }}
+                    onClick={() => setsize(value)}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </button>
             </div>
           </div>
         </div>
