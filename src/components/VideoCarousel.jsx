@@ -9,7 +9,7 @@ const VideoCarousel = () => {
   const videoSpanRef = useRef([]);
   const videoDivRef = useRef([]);
 
-  const [video, setvideo] = useState({
+  const [video, setVideo] = useState({
     isEnd: false,
     startPlay: false,
     videoId: 0,
@@ -69,10 +69,24 @@ const VideoCarousel = () => {
                   ? "10vw"
                   : "4vw",
             });
+
+            gsap.to(span[videoId], {
+              width: "${currentProgress}%",
+              backgroundColor: "white",
+            });
           }
         },
 
-        onComplete: () => {},
+        onComplete: () => {
+          if (isPlaying) {
+            gsap.to(videoDivRef.current[videoId], {
+              width: "12px",
+            });
+            gsap.to(span[videoId], {
+              backgroundColor: "#afafaf",
+            });
+          }
+        },
       });
     }
   }, [videoId, startPlay]);
