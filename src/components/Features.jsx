@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import React from "react";
 import { animateWithGsap } from "../utils/animations";
+import { exploreVideo } from "../utils";
 
 const Features = () => {
   useGSAP(() => {
@@ -20,6 +21,13 @@ const Features = () => {
             <h2 className="text-5xl lg:text-7xl  font-semibold">
               Forged in titanium.
             </h2>
+          </div>
+          <div className="flex-center flex-col sm:px-10">
+            <div className="relative h-[50vh] w-full flex items-center">
+              <video>
+                <source src={exploreVideo} type="video/mp4" />
+              </video>
+            </div>
           </div>
         </div>
       </div>
