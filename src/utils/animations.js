@@ -1,7 +1,4 @@
-import animateWithGsapTimeline from "./path/to/animateWithGsapTimeline";
-import { gsap } from "gsap";
-
-export const animateWithGsapTimeline = (
+const animateWithGsapTimeline = (
   timeline,
   rotationRef,
   rotationState,
